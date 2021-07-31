@@ -38,7 +38,38 @@ const MORSE_TABLE = {
 };
 
 function decode(expr) {
-    // write your solution here
+    let newArr = [];
+	let morseArr = [];
+
+	for (let i = 0; i < expr.length; i++) {
+		if (expr[i] == " ") {
+			newArr.push("@");
+		}
+
+		for (const letter in MORSE_TABLE) {
+			if (MORSE_TABLE[letter] === expr[i]) {
+				newArr.push(letter);
+			}
+		}
+	}
+
+	for (let i = 0; i < newArr.length; i++) {
+		let morseLetter = "";
+		for (let k = 0; k < newArr[i].length; k++) {
+			if (newArr[i][k] === ".") {
+				morseLetter = morseLetter + '10';
+			} else if (newArr[i][k] === "-") {
+				morseLetter = morseLetter + '11';
+			} else if (newArr[i][k] === "@") {
+				morseLetter = morseLetter + "**********";
+			}
+		}
+
+		morseArr.push(morseLetter.padStart(10, '0'));
+	}
+
+	const result = morseArr.join('');
+    return result;
 }
 
 module.exports = {
